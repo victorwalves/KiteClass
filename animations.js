@@ -511,16 +511,15 @@ magneticBtns.forEach(btn => {
 
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            const offset = 100;
-            const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
+        const href = this.getAttribute('href');
+        if (href === '#') return;
 
-            gsap.to(window, {
-                scrollTo: targetPosition,
-                duration: 1.2,
-                ease: 'power3.inOut'
+        e.preventDefault();
+        const target = document.querySelector(href);
+        if (target) {
+            target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
             });
         }
     });
